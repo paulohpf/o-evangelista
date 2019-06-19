@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import * as WordPressAPI from '../../Utils/WordPressApi';
 import {Row, Col} from 'react-bootstrap/'
 import './Home.scss';
@@ -6,6 +7,8 @@ import './Home.scss';
 var _ = require('lodash');
 
 class Home extends Component {
+    _isMounted = true;
+    _isLoading = true;
     
     constructor(props) {
         super(props);
@@ -29,14 +32,19 @@ class Home extends Component {
             posts = response;
             response.map(function(post, index){
                 WordPressAPI.getPostAttachment(post._links[`wp:featuredmedia`][0].href, function(response){
-                    attachment[`${post.id}`] = response.media_details.sizes.medium.source_url;
-                    self.debouncedUpdateAttachments(attachment);
+                    if (self._isMounted) {
+                        attachment[`${post.id}`] = response.media_details.sizes.medium.source_url;
+                        self.debouncedUpdateAttachments(attachment);
+                    }
                 });
             });
         }).finally(function (){
-            self.setState({
-                posts: posts
-            });
+            self._isLoading = false;
+            if (self._isMounted) {
+                self.setState({
+                    posts: posts
+                });
+            }
         });
     }
     
@@ -47,7 +55,14 @@ class Home extends Component {
     }
     
     componentDidMount() {
+        this._isMounted = true;
+        this._isLoading = true;
         this.getPosts();
+    }
+    
+    componentWillUnmount() {
+        this.debouncedUpdateAttachments.cancel();
+        this._isMounted = false;
     }
     
     render() {
@@ -58,8 +73,8 @@ class Home extends Component {
         } else {
             toRender = this.state.posts.map((post, index) => 
             
-            <Col className={'post'}>
-            {this.state.posts_attachment[`${post.id}`] === 'undefined' ? '' : <a href={post.link} ><img src={this.state.posts_attachment[`${post.id}`]} alt={post.title.rendered}/></a> }
+            <Col className={'post'} key={index}>
+            {this.state.posts_attachment[`${post.id}`] === 'undefined' ? '' : <Link to={`/post/${post.slug}`} ><img src={this.state.posts_attachment[`${post.id}`]} alt={post.title.rendered}/></Link> }
             </Col>
             
             
@@ -67,10 +82,12 @@ class Home extends Component {
         }
         
         return(
+            <div className={`site-main ${this._isLoading === true ? 'loading' : ''} `}>
             <div className={'home'}>
             <Row>
             {toRender}
             </Row>
+            </div>
             </div>
             )
         }

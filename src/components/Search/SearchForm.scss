@@ -1,0 +1,23 @@
+.searchForm {
+    position: relative;
+    .input-pesquisar {
+        padding-right: 50px;
+        width: 100%;
+    }
+
+    .btn-pesquisar {
+        border: none;
+        position: absolute;
+        right: 10px;
+
+        &::before {
+            content: '';
+            position: relative;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url('../../images/search.png') no-repeat;
+            background-size: 100%;
+        }
+    }
+}

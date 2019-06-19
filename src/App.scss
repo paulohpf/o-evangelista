@@ -1,5 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Varela&display=swap');
 
-.container-fluid {
-    min-height: 85vh;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.site-main {
+    min-height: 100vh;
+
+    .page-header {
+        padding-top: 1.75em;
+    }
+}
+
+.loading {
+    &::before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #fff url('./images/loading.gif') no-repeat;
+        background-position: center;
+        position: fixed;
+        z-index: 9;
+        top: 0;
+        left: 0;
+    }
 }

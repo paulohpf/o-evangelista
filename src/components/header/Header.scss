@@ -6,25 +6,10 @@
         font-weight: bold;
         color: #101010;
         padding: 0 15px;
-    }
 
-    .input-pesquisar {
-        padding-right: 50px;
-    }
-
-    .btn-pesquisar {
-        border: none;
-        position: absolute;
-        right: 30px;
-
-        &::before {
-            content: '';
-            position: relative;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: url('../../images/search.png') no-repeat;
-            background-size: 100%;
+        a {
+            color: #101010;
+            text-decoration: none;
         }
     }
 }
