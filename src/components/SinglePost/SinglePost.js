@@ -118,7 +118,7 @@ class SinglePost extends Component {
             if(this.state.mostRecentPosts.postsData !== undefined) {
                 mostRecentPosts = <aside className={'sidebar-site'}>
                 <div className={'ultimas-postagens'}>
-                <h2 className={'title'}>Mais recentes</h2>
+                <h5 className={'title'}>Mais recentes</h5>
                 <Row>
                 {this.state.mostRecentPosts.postsData.map((post, index) =>
                     <Col className={'post'} md={12} key={index}>
@@ -147,7 +147,7 @@ class SinglePost extends Component {
                 <Col sm={8}>
                 <article id={`post-${this.state.postData.id}`} className={`post-${this.state.postData.id} post`}>
                 <header className={'entry-header'}>
-                <h1 className={`entry-title`}>{this.state.postData.title.rendered}</h1>
+                <h2 className={`entry-title`}>{this.state.postData.title.rendered}</h2>
                 <span className={`data-post`}>{Utils.convertDate(this.state.postData.date_gmt)}</span>
                 </header>
                 {this.state.postThumbnail !== '' ? <div className={`post-thumbnail`}><img src={this.state.postThumbnail} alt={this.state.postData.title.rendered}></img></div> : '' }
