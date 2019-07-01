@@ -7,6 +7,7 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop'
 import Header from './components/Header/Header'
 import Home from './components/Home/Home'
 import SearchForm from './components/Search/SearchForm'
+import SearchResults from './components/Search/SearchResults'
 import SinglePost from './components/SinglePost/SinglePost'
 import Contato from './components/Contato/Contato'
 import Footer from './components/Footer/Footer'
@@ -40,8 +41,9 @@ function App() {
       <Container>
       <Switch>
       <Route path="/" exact component={Home} />
-      <Route path={`/post/:slug`} component={SinglePost} />
       <Route path="/contato/" component={Contato} />
+      <Route path={`/post/:slug`} component={SinglePost} />
+      <Route path={`/search/`} component={SearchResults} />
       <Route component={NoMatch} />
       </Switch>
       
@@ -54,4 +56,3 @@ function App() {
     }
     
     export default App;
-    

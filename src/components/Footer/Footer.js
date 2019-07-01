@@ -22,7 +22,7 @@ class Footer extends Component {
             </Col>
             <Col className={'social'}>
             <Row>
-            <Col><a className={'facebook'} href="#"></a></Col>
+            <Col><a className={'facebook'} href="https://www.facebook.com/oevangelista.quinezi/"></a></Col>
             <Col><a className={'instagram'} href="#"></a></Col>
             </Row>
             </Col>

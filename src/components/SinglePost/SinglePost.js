@@ -10,6 +10,7 @@ var _ = require('lodash');
 class SinglePost extends Component {
     _isMounted = true;
     _isLoading = false;
+    
     constructor(props) {
         super(props);
         
@@ -161,7 +162,7 @@ class SinglePost extends Component {
             }
             
             return(
-                <div className={`site-main ${this._isLoading === true ? 'loading' : '' }`}>
+                <div className={`site-main single-post ${this._isLoading === true ? 'loading' : '' }`}>
                 {toRender}
                 </div>
                 

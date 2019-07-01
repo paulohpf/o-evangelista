@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import * as WordPressAPI from '../../Utils/WordPressApi';
 import * as Utils from '../../Utils/Utils'
-import {Row, Col} from 'react-bootstrap/'
+import {Row, Col, Card} from 'react-bootstrap/'
 import './Home.scss';
 
 var _ = require('lodash');
@@ -34,7 +34,7 @@ class Home extends Component {
             response.map(function(post, index){
                 WordPressAPI.getPostAttachment(post._links[`wp:featuredmedia`][0].href, function(response){
                     if (self._isMounted) {
-                        attachment[`${post.id}`] = response.media_details.sizes.thumbnail.source_url;
+                        attachment[`${post.id}`] = response.media_details.sizes.medium.source_url;
                         self.debouncedUpdateAttachments(attachment);
                     }
                 });
@@ -74,17 +74,18 @@ class Home extends Component {
         } else {
             toRender = this.state.posts.map((post, index) => 
             
-            <Col xs={12} key={index}>
+            <Col className={'post'} key={index}>
             {/* {this.state.posts_attachment[`${post.id}`] === 'undefined' ? '' : <Link to={`/post/${post.slug}`} ><img src={this.state.posts_attachment[`${post.id}`]} alt={post.title.rendered}/></Link> } */}
             {this.state.posts_attachment[`${post.id}`] === 'undefined' ? '' : 
-            <div className={'post'}>
-                <Link to={`/post/${post.slug}`} className={`post-thumbnail`} ><img src={this.state.posts_attachment[`${post.id}`]} alt={post.title.rendered}/></Link>
-            <div className={`post-entry`}>
-                    <Link to={`/post/${post.slug}`} className={`post-title`}>{post.title.rendered}</Link>
-                    <div className={`post-content`} dangerouslySetInnerHTML={Utils.decodeHTML(post.excerpt.rendered)}></div>
-                    <Link to={`/post/${post.slug}`} className={`post-readmore`}>Ler mais...</Link>
-                </div>
-            </div> }
+            <Card>
+            <Link to={`/post/${post.slug}`} ><Card.Img variant="left" src={this.state.posts_attachment[`${post.id}`]} alt={post.title.rendered}/></Link>
+            <Card.Body>
+                {console.log(post)}
+            <Card.Text><div dangerouslySetInnerHTML={Utils.decodeHTML(post.excerpt.rendered)}></div> </Card.Text>
+            <Link to={`/post/${post.slug}`} className={`btn btn-primary`}>Ler Mais</Link>
+            {/* <a className={`btn btn-primary`}>Go somewhere</a> */}
+            </Card.Body>
+            </Card> }
             </Col>
             
             

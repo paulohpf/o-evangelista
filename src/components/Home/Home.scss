@@ -1,6 +1,32 @@
 .home {
     .post {
+        display: flex;
         margin-top: 10px;
         text-align: center;
+        background: #fff;
+        padding: 20px;
+        
+        .post-entry {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0 10px;
+            .post-title {
+                font-size: 1.3rem;
+                font-weight: 600;
+                text-align: left;
+                color: #101010;
+                display: block;
+            }
+
+            .post-content{
+                text-align: left;
+            }
+
+            .post-readmore{
+                text-align: right;
+                text-decoration: underline;
+            }
+        }
     }
 }
