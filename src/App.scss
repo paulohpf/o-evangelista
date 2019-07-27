@@ -6,14 +6,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-        background: #ecf0f1;
+        background: #f5f6fa;
 }
 
 .site-main {
-    min-height: 100vh;
+    min-height: calc(100vh - 153px);
 
-    .page-header {
-        padding-top: 1.75em;
+    &.content {
+        padding: 15px;
+        background: #fff;
+        margin: 10px 0;
+        // border: 1px solid #bdc3c7;
+        // border-radius: 5px;
+        box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05), 0 0 2px 0 rgba(0, 0, 0, 0.1), 0 1px 0 0 rgba(0, 0, 0, 0.05);
     }
 }
 

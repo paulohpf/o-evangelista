@@ -18,12 +18,12 @@ class Header extends Component {
     render() {
         return(
             <Navbar className={'header'} sticky={'top'} expand="lg">
-            <Navbar.Brand href="/"><img src={logo}></img></Navbar.Brand>
+            <Navbar.Brand href="/"><img src={logo} alt={`O Jornaleiro`}></img></Navbar.Brand>
             <Navbar.Toggle aria-controls="header-navbar-nav"/>
             <Navbar.Collapse id="header-navbar-nav">
             <Nav className="mr-auto">
             <Link to="/" className={'nav-link'}>Home</Link>
-            <Link to="/" className={'nav-link'}>Textos</Link>
+            {/* <Link to="/textos" className={'nav-link'}>Textos</Link> */}
             <Link to="/" className={'nav-link'}>Edson Quinezi</Link>
             <Link to="/contato" className={'nav-link'}>Contato</Link>
             </Nav>

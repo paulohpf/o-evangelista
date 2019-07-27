@@ -22,8 +22,8 @@ class Footer extends Component {
             </Col>
             <Col className={'social'}>
             <Row>
-            <Col><a className={'facebook'} href="https://www.facebook.com/oevangelista.quinezi/"></a></Col>
-            <Col><a className={'instagram'} href="#"></a></Col>
+            <Col><a className={'facebook'} href="https://www.facebook.com/oevangelista.quinezi/" alt="Facebook"></a></Col>
+            <Col><a className={'instagram'} href="#" alt="Instagram"></a></Col>
             </Row>
             </Col>
             </Row>

@@ -6,7 +6,6 @@ import './SearchForm.scss';
 class SearchForm extends Component {
     
     constructor(props) {
-        
         super(props);
         
         this.state = {
@@ -17,6 +16,18 @@ class SearchForm extends Component {
         this.handleChangeInput = this.handleChangeInput.bind(this);
         // this.handleOnClickSearchButton = this.handleOnClickSearchButton.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleRedirect = this.handleRedirect.bind(this);
+    }
+
+    componentDidMount(){
+    }
+
+    componentDidUpdate() {
+        if(this.state.redirect) {
+            this.setState({
+                redirect: false
+            });
+        }
     }
     
     handleChangeInput(event){
@@ -33,21 +44,21 @@ class SearchForm extends Component {
             });
         }
     }
-    
-    render() {
-        var redirect = null
-        
+
+    //Verifico se é necessário realizar um redirect
+    handleRedirect(){
         if(this.state.redirect) {
-            console.log(this.state.redirect);
-            redirect = <Redirect push to={{
-                pathname:`/search/`,
-                search:`${this.state.searchValue}`
+            return <Redirect push to={{
+                pathname:`/search/?q=${this.state.searchValue}`,
+                state: { q: this.state.searchValue }
             }}/>;
         }
-        
+    }
+    
+    render() {
         return(
             <div className={'searchForm'}>
-            {redirect}
+            {this.handleRedirect()}
             <Form inline onSubmit={this.handleSubmit}>
             <FormControl name={'inputSearch'} type="text" placeholder="Pesquisar" className="mr-sm-2 input-pesquisar" value={this.state.searchValue} onChange={this.handleChangeInput} />
             <Button variant="link" className="btn-pesquisar" onClick={this.handleSubmit}></Button>

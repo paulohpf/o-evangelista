@@ -1,0 +1,54 @@
+.site-main.search-results {
+    &.content {
+        
+    }
+    
+    .searchForm {
+        margin: 15px 0;
+    }
+    
+    .page-header {
+        text-align: center;
+        padding-bottom: 9px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .results {
+        margin:10px 0;
+        padding: 10px 0;
+        
+        .result {
+            margin: 10px 0;
+            
+            .link {
+                text-decoration: none;
+
+                h3 {
+                    font-size: 18px;
+                    margin: auto;
+                    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                
+                cite {
+                    color: #16a085;
+                    display: block;
+                    font-style: normal;
+                    font-size: 14px;
+                }
+            }
+            
+            .details {
+                font-size: small;
+                
+                .date {
+                    margin-right: 5px;
+                    color: #636e72;
+                }
+            }
+        }
+        
+    }
+}

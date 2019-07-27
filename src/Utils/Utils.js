@@ -12,3 +12,8 @@ export function decodeHTML(html) {
     // return txt.value;
     return {__html: txt.value}
 }
+
+export function transformPermalink(locationOrigin, permalink){
+    let to = permalink.split('/');
+    return `/${to[3]}/${to[4]}`;
+}
