@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Contato.scss';
-import { Row, Col, Button } from 'react-bootstrap/'
+import { Row, Col, Button, Alert } from 'react-bootstrap/'
 import * as WordPressAPI from '../../Utils/WordPressApi';
 import * as Utils from '../../Utils/Utils';
 import { debounce } from 'lodash';
@@ -9,6 +9,14 @@ import { debounce } from 'lodash';
 
 class Contato extends Component {
     _isMounted = true;
+    _alertMessageSuccess = {
+        header: "Seu e-mail foi enviado!",
+        message: "Nós iremos ler e responder o mais breve possível!"
+    };
+    _alertMessageFail = {
+        header: "Ops, houve um problema!",
+        message: "Seu e-mail não foi enviado, tente novamente mais tarde"
+    };
 
     constructor(props) {
         super(props);
@@ -21,7 +29,8 @@ class Contato extends Component {
             name: '',
             email: '',
             subject: '',
-            message: ''
+            message: '',
+            mailSent: null
         };
 
         this.getPageInfo = this.getPageInfo.bind(this);
@@ -89,12 +98,20 @@ class Contato extends Component {
     }
 
     submitMessage() {
-        console.table({
-            name: this.state.name,
-            email: this.state.email,
-            subject: this.state.subject,
-            message: this.state.message,
-        });
+        let self = this;
+        Utils.sendMessage({
+            json: {
+                name: this.state.name,
+                email: this.state.email,
+                subject: this.state.subject,
+                message: this.state.message
+            }
+        }, function (response) {
+            self.setState({
+                mailSent: true
+            });
+        }
+        );
     }
 
     componentDidMount() {
@@ -109,18 +126,26 @@ class Contato extends Component {
                 <div dangerouslySetInnerHTML={Utils.decodeHTML(this.state.pageInfo.content)}></div>
 
                 <div className={`contact-form`}>
-                    <form onSubmit={this.debounceEvent(this.submitMessage, 500)}>
+                    <Alert variant={this.state.mailSent === true? 'success' : 'danger'} style={this.state.mailSent === null ? {display: 'none'} : {} } >
+                        <Alert.Heading>
+                            {this.state.mailSent === true ?  this._alertMessageSuccess.header : this._alertMessageFail.header}
+                        </Alert.Heading>
+                        <p>{this.state.mailSent === true ?  this._alertMessageSuccess.message : this._alertMessageFail.message}</p>
+
+                    </Alert>
+                    <div></div>
+                    <form onSubmit={this.debounceEvent(this.submitMessage, 500)} method="post" encType="multipart/form-data">
                         <Row>
                             <Col sm="12">
                                 <label>
                                     Seu nome<span className={`required`}>*</span>
-                                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange}></input>
+                                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange} required></input>
                                 </label>
                             </Col>
                             <Col sm="12">
                                 <label>
                                     Seu e-mail<span className={`required`}>*</span>
-                                    <input type="text" name="email" value={this.state.email} onChange={this.handleChange}></input>
+                                    <input type="text" name="email" value={this.state.email} onChange={this.handleChange} required></input>
                                 </label>
                             </Col>
                             <Col sm="12">
@@ -132,7 +157,7 @@ class Contato extends Component {
                             <Col sm="12">
                                 <label>
                                     Sua mensagem<span className={`required`}>*</span>
-                                    <textarea name="message" value={this.state.message} onChange={this.handleChange}></textarea>
+                                    <textarea name="message" value={this.state.message} onChange={this.handleChange} required></textarea>
                                 </label>
                             </Col>
                             <Col sm="12">

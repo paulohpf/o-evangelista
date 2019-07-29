@@ -16,7 +16,6 @@ class Footer extends Component {
             <div className={'footer'}>
             <Container>
             <Row>
-            <Col></Col>
             <Col xs={6}>
                 <span>O EVANGELISTA - 2019 - TODOS OS DIREITOS RESERVADOS.</span>
             </Col>

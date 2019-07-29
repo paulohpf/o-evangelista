@@ -1,3 +1,6 @@
+import axios from "axios";
+import qs from 'qs';
+
 export function convertDate(customDate) {
     let date = new Date(customDate);
 
@@ -16,4 +19,16 @@ export function decodeHTML(html) {
 export function transformPermalink(locationOrigin, permalink){
     let to = permalink.split('/');
     return `/${to[3]}/${to[4]}`;
+}
+
+export function sendMessage(json, callback) {
+    return axios.post('http://dev.oevangelista.com.br/sender.php', qs.stringify(json), {
+        headers: { 
+            'method': 'POST',
+            'content-type': 'application/x-www-form-urlencoded' }
+    }).then(function(response) {
+        callback(response);
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
